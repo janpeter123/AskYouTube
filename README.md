@@ -40,3 +40,51 @@ The project also counts with a simple caching system to process a video only onc
 
 ![Add Video URL](./documents/images/ask.png)
 
+
+## How to setup the project
+
+### Rest API Setup
+Go to `./source/rest_api` folder and run the following command to install the project dependencies
+
+`pip install -r requirements.txt`
+
+Then, copy the `.env.example` file with the name `.env` and fill it with all the necessary credentials.
+
+After that you can run the project in dev mode with
+
+`uvicorn main:app --reload`
+
+Or if you wish to run a containerized version of the application you can run
+
+`docker build -t rest_api .`
+
+After building your image you should run your application with
+
+`docker run -p 8000:8000 rest_api`
+
+
+### Front End Setup
+Go to `./source/front_end` folder and run the following command to install the project dependencies
+
+`npm i`
+
+after that run
+
+`npm run dev`
+
+The project should be available at `http://localhost:3000`
+
+Or if you wish to run a containerized version of the application you can run
+
+`docker build -t front .`
+
+After building your image you should run your application with
+
+`docker run -p 3000:3000 front`
+
+
+Have fun!
+
+>Note: This builds are not suitable for production
+
+
