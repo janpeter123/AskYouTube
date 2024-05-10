@@ -22,3 +22,21 @@ The project also counts with a simple caching system to process a video only onc
 ## Project Demo
 
 ![Video](./AskYTDemo.mov)
+
+## How to use it
+
+1. First add the video URL
+
+![Add Video URL](./documents/images/add_url.png)
+
+
+
+2. Wait a couple of seconds
+
+![Add Video URL](./documents/images/wait.png)
+
+
+3. Get the Summary and ask questions about the video content
+
+![Add Video URL](./documents/images/ask.png)
+
