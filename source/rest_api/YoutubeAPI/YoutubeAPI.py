@@ -134,7 +134,7 @@ def get_video_summary(video_id:str)->str:
         prompt = summarization_prompt(complete_text_resumos[:text_length]) #Generate Summarization Prompt
         complete_summary = watsonx_llm.invoke(prompt) #Generate video summary
 
-        video_summaries[video_id] = complete_summary
+        video_summaries[video_id] = complete_summary #Add to cache complete video Summary
     else:
        complete_summary = video_summaries[video_id]
        

@@ -6,8 +6,9 @@ from YoutubeAPI.YoutubeAPI import get_youtube_video_id, answer_question_about_vi
 
 
 app = FastAPI()
+
 # Set up CORS
-origins = ["*"]
+origins = ["*"] #Enabling requests from all origins
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,11 +16,12 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-)
+)   #Adding cors rules
+
 videos = set() #cache of processed videos, this need to be upgraded with a real database
 
 
-@app.get("/")
+@app.get("/")       #Get route to see Application Status
 def read_root():
     return {"Status": "Up"}
 
@@ -27,27 +29,27 @@ def read_root():
 @app.post("/ask_video")
 def query_video(request :dict):
     try:
-        url = request['url']
-        user_query = request['question']
-        video_id = get_youtube_video_id(url)
+        url = request['url']                    #Get request URL
+        user_query = request['question']        # Get User Query
+        video_id = get_youtube_video_id(url)    #Get YouTube VideoId   
 
         if(video_id!=None):
-            llm_answer = answer_question_about_video(video_id, user_query)
+            llm_answer = answer_question_about_video(video_id, user_query)  #If video ID is not none, process Video text
             return {"generated_text":llm_answer}
         else:
-            raise HTTPException(500,"No Video ID detected")
+            raise HTTPException(500,"No Video ID detected")     #Throw Meaningful message in case of error
     
     except Exception as error:
-        raise HTTPException(500,f"Problem video q and a service:\n{error}")
+        raise HTTPException(500,f"Problem video q and a service:\n{error}") #Throw complete error
 
 @app.get("/video_summary")
 def summarize_video(url :str):
     try:
 
-        video_id = get_youtube_video_id(url)
+        video_id = get_youtube_video_id(url)  #Get YouTube VideoId  
 
         if(video_id!=None):
-            summary = get_video_summary(video_id=video_id)
+            summary = get_video_summary(video_id=video_id) #Process video chunks and get summary
             return {"generated_text":summary}    
         else:
             raise HTTPException(500,"No Video ID detected")
